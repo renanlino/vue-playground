@@ -1,1 +1,1 @@
-export const ASSESSMENTS_API_URL = 'localhost:3000'
+export const ASSESSMENTS_API_URL = 'http://localhost:3000'
