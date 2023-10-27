@@ -2,7 +2,7 @@
   <div>
     <input
       type="file"
-      @change="handleFileInput"
+      @change="handleFileInput($event)"
       accept="video/*"
       capture
     />
@@ -38,10 +38,10 @@ export default {
       this.file = e.target.files[0]
     },
     async submitFile() {
-        await this.createAnswer({
-          id: this.id,
-          file: this.file
-        })
+      await this.createAnswer({
+        id: this.id,
+        file: this.file
+      })
     },
   }
 }
