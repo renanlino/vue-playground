@@ -8,16 +8,15 @@ export const toFormData = (answer) => {
 
   Object.entries(answer).forEach(([key, value]) => {
     if (value && typeof value !== 'object') {
-      console.log(`${prefix}[${snakeCase(key)}]`, value)
       formData.append(`${prefix}[${snakeCase(key)}]`, value)
     }
   })
 
   if ('file' in answer) {
     if (answer.file) {
-      formData.append('[answer][file]', answer.file)
+      formData.append('answer[file]', answer.file)
     } else {
-      formData.append('[answer][file]', '')
+      formData.append('answer[file]', '')
     }
   }
 
@@ -26,6 +25,11 @@ export const toFormData = (answer) => {
 
 export default {
   async createAssessmentAnswer (_, answer) {
-    return post(`${ASSESSMENTS_API_URL}/assessment_answers`, answer)
+    const options = {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+    return post(`${ASSESSMENTS_API_URL}/assessment_answers`, toFormData(answer), options)
   }
 }
