@@ -21,7 +21,14 @@
         controls
         autoplay
         playsinline
-      />
+      >
+      <track
+        label="English"
+        kind="captions"
+        srclang="en"
+        :src="caption"
+        default />
+      </video>
     </main>
 
     <button
@@ -37,6 +44,7 @@
 import { useStore } from 'vuex'
 import { ref } from 'vue'
 import RecordRTC from 'recordrtc'
+import caption from '@/assets/vtt/caption-en.vtt'
 
 export default {
   name: 'App',
@@ -48,7 +56,8 @@ export default {
 
     return {
       createAnswer: (args) => store.dispatch('assessments/createAssessmentAnswer', args),
-      video: ref('video')
+      video: ref('video'),
+      caption
     }
   },
 
@@ -111,7 +120,7 @@ export default {
       this.video.volume = 1
       this.file = this.recorder.getBlob()
       this.video.src = URL.createObjectURL(this.file)
-      console.log(this.video)
+      this.video.textTracks[0].mode = 'showing'
 
       this.recorder.camera.stop()
       this.recorder.destroy()
