@@ -14,9 +14,9 @@ export const toFormData = (answer) => {
 
   if ('file' in answer) {
     if (answer.file) {
-      formData.append('answer[file]', answer.file)
+      formData.append('answer[media]', answer.file)
     } else {
-      formData.append('answer[file]', '')
+      formData.append('answer[media]', '')
     }
   }
 
@@ -30,6 +30,6 @@ export default {
         'Content-Type': 'multipart/form-data'
       }
     }
-    return post(`${ASSESSMENTS_API_URL}/assessment_answers`, toFormData(answer), options)
+    return post(`${ASSESSMENTS_API_URL}/users/answers`, toFormData(answer), options)
   }
 }
